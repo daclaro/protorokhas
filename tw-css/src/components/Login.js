@@ -5,6 +5,7 @@ import biglogo from '../biglogosvg.svg'
 export const Login = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [user, setUser] = useState('')
   const [invalid, setInvalid] = useState(false)
   const handleEmail = (e) => {
     e.preventDefault()
@@ -19,6 +20,7 @@ export const Login = (props) => {
     try {
       const token = await login({ user_email: email, user_password: password })
       props.setToken(token.token)
+      setUser(token.user)
       setInvalid(false)
     } catch (error) {
       console.log(error)
@@ -29,7 +31,7 @@ export const Login = (props) => {
   return (
     <div>
       {props.token ? (
-        <h1>Thanks bro</h1>
+        <h1>Hello {user.user_name} </h1>
       ) : (
         <div className=' bg-slate-400'>
           {invalid ? <div className='invalid'>Invalid credentials</div> : <></>}

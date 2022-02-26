@@ -33,7 +33,7 @@ function App() {
           path='/login'
           element={
             <>
-              <Nav /> <Login token={token} setToken={setToken} />
+              <Nav token={token} setToken={setToken} /> <Login token={token} setToken={setToken} />
             </>
           }
         />

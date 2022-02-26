@@ -1,8 +1,58 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export const Nav = () => {
+const Nav = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const Nag = () => {
+    return (
+      <ul class='flex items-center hidden space-x-8 lg:flex'>
+        {props.token ? (
+          <>
+            <li>
+              <Link to='/register' class='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400' aria-label='Sign up' title='Sign up'>
+                Inscription
+              </Link>
+            </li>
+            <li>
+              <Link
+                to='/login'
+                class='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none'
+                aria-label='Sign up'
+                title='Sign up'
+              >
+                <button
+                  onClick={() => {
+                    props.setToken('')
+                  }}
+                >
+                  {' '}
+                  Se deconnecter
+                </button>
+              </Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to='/register' class='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400' aria-label='Sign up' title='Sign up'>
+                Inscription
+              </Link>
+            </li>
+            <li>
+              <Link
+                to='/login'
+                class='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none'
+                aria-label='Sign up'
+                title='Sign up'
+              >
+                Se connecter
+              </Link>
+            </li>
+          </>
+        )}
+      </ul>
+    )
+  }
   return (
     <div class='px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8'>
       <div class='relative flex items-center justify-between'>
@@ -39,23 +89,7 @@ export const Nav = () => {
             </li>
           </ul>
         </div>
-        <ul class='flex items-center hidden space-x-8 lg:flex'>
-          <li>
-            <Link to='/register' class='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400' aria-label='Sign up' title='Sign up'>
-              Inscription
-            </Link>
-          </li>
-          <li>
-            <Link
-              to='/login'
-              class='inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none'
-              aria-label='Sign up'
-              title='Sign up'
-            >
-              Se connecter
-            </Link>
-          </li>
-        </ul>
+        <Nag />>
         <div class='lg:hidden'>
           <button aria-label='Open Menu' title='Open Menu' class='p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50' onClick={() => setIsMenuOpen(true)}>
             <svg class='w-5 text-gray-600' viewBox='0 0 24 24'>
@@ -137,3 +171,5 @@ export const Nav = () => {
     </div>
   )
 }
+
+export { Nav }
