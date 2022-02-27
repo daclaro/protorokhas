@@ -7,9 +7,7 @@ import { Register } from './components/Register.js'
 import React, { useState, useEffect } from 'react'
 import { Tutorial } from './components/Tutorial.js'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-function App() {
-  const [token, setToken] = useState('')
-  const [logged, setLogged] = useState(false)
+function UnauthenticatedApp({ login, register }) {
   return (
     <Router>
       <Routes>
@@ -25,7 +23,7 @@ function App() {
           path='/login'
           element={
             <>
-              <Nav /> <Login setToken={setToken} logged={logged} setLogged={setLogged} />
+              <Nav /> <Login login={login} register={register} />
             </>
           }
         />
@@ -42,4 +40,4 @@ function App() {
   )
 }
 
-export default App
+export default UnauthenticatedApp

@@ -2,14 +2,15 @@ import logo from './logo.svg'
 import './App.css'
 import { Content } from './components/Content.js'
 import { Nav } from './components/Nav.js'
+import { AuthenticatedTutorial } from './components/AuthenticatedTutorial.js'
+import { AuthenticatedLogin } from './components/AuthenticatedLogin.js'
+import { AuthenticatedNav } from './components/AuthenticatedNav.js'
 import { Login } from './components/Login.js'
 import { Register } from './components/Register.js'
 import React, { useState, useEffect } from 'react'
-import { AuthenticatedTutorial } from './components/Tutorial.js'
+import { Tutorial } from './components/Tutorial.js'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-function App() {
-  const [token, setToken] = useState('')
-  const [logged, setLogged] = useState(false)
+function AuthenticatedApp({ user, logout }) {
   return (
     <Router>
       <Routes>
@@ -17,7 +18,7 @@ function App() {
           path='/'
           element={
             <>
-              <Nav /> <AuthenticatedTutorial />
+              <AuthenticatedNav logout={logout} /> <AuthenticatedTutorial />
             </>
           }
         />
@@ -25,7 +26,7 @@ function App() {
           path='/login'
           element={
             <>
-              <Nav /> <Login setToken={setToken} logged={logged} setLogged={setLogged} />
+              <AuthenticatedNav logout={logout} /> <AuthenticatedLogin />
             </>
           }
         />
@@ -33,7 +34,7 @@ function App() {
           path='/register'
           element={
             <>
-              <Nav /> <Register />
+              <AuthenticatedNav logout={logout} /> <Register />
             </>
           }
         />
@@ -42,4 +43,4 @@ function App() {
   )
 }
 
-export default App
+export default AuthenticatedApp

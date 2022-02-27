@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Nav = (props) => {
+const AuthenticatedNav = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
@@ -53,10 +53,18 @@ const Nav = (props) => {
               aria-label='Sign up'
               title='Sign up'
             >
-              Se connecter
+              <button
+                onClick={() => {
+                  props.logout()
+                }}
+              >
+                {' '}
+                Se deconnecter
+              </button>
             </Link>
           </li>
         </ul>
+
         <div class='lg:hidden'>
           <button aria-label='Open Menu' title='Open Menu' class='p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50' onClick={() => setIsMenuOpen(true)}>
             <svg class='w-5 text-gray-600' viewBox='0 0 24 24'>
@@ -139,4 +147,4 @@ const Nav = (props) => {
   )
 }
 
-export { Nav }
+export { AuthenticatedNav }

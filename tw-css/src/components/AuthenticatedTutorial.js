@@ -3,6 +3,37 @@ export const AuthenticatedTutorial = () => {
   return (
     <div className=' bg-slate-400'>
       <div className='md:flex md:justify-center md:mx-20 py-6 '>
+        <section className='md:mx-5  basis-1/3 '>
+          <section className=' text-center bg-white py-6 mb-2 '></section>
+          <section className='text-center bg-white py-3'>
+            <section className='espace'>
+              <i className='fas fa-folder fa-3x font-icon ' />
+              <h2 class='py-2'>Etat dossier</h2>
+              <div className='box px-3'>
+                <i className='fas fa-folder-open absolute-icon' />
+                <input
+                  type='text'
+                  name='ref'
+                  className='  w-full h-12 px-4 mb-3 transition duration-200 bg-white border border-gray-300 rounded shadow-sm appearance-none  focus:border-deep-purple-accent-400 focus:outline-none focus:shadow-outline'
+                  placeholder='Votre reference dossier'
+                />
+              </div>
+              <div className='text-xs text-left px-3 mb-4' href>
+                <p>Saisissez la référence du dossier recherché telle qu'elle figure sur la demande soumise. Exemple : PCT-PANF-MRF-456/2020</p>
+              </div>
+              <div className='flex justify-center '>
+                <Link
+                  to='/register'
+                  className='flex items-center justify-center h-10  w-11/12 max-w-prose text-sm  px-1 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none'
+                >
+                  Verifier
+                </Link>
+              </div>{' '}
+              <br />
+              <br />
+            </section>
+          </section>
+        </section>
         <section className='md:mx-5 espace pont espace-pont bg-white'>
           <div class='my-6 mx-4'>
             <h2 class='font-bold'>Pont de confiance Usager / Administration</h2>

@@ -1,53 +1,37 @@
-import logo from './logo.svg'
-import './App.css'
-import { Content } from './components/Content.js'
-import { Nav } from './components/Nav.js'
-import { Login } from './components/Login.js'
-import { Register } from './components/Register.js'
 import React, { useState, useEffect } from 'react'
-import { Tutorial } from './components/Tutorial.js'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import me from './services/me.js'
+import * as auth from './auth-provider'
+import AuthenticatedApp from './AuthenticatedApp.js'
+import UnauthenticatedApp from './UnauthenticatedApp.js'
+
+async function getUser() {
+  let user = null
+
+  const token = await auth.getToken()
+
+  if (token) {
+    const data = await me(token)
+    console.log('Fsdsd', data)
+    user = data.user
+    console.log('dsfds YOU dsfcdsxzc', data.user)
+  }
+
+  return user
+}
+
 function App() {
-  const [token, setToken] = useState(window.localStorage.getItem('token') || '')
-  console.log(window.localStorage.getItem('token') | '')
+  const [user, setUser] = React.useState(null)
   React.useEffect(() => {
-    if (!token) {
-      console.log('whyyyy return')
-      return
-    }
-    window.localStorage.setItem('token', token)
-    console.log('whyyyy not')
-  })
-  return (
-    <Router>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <>
-              <Nav /> <Tutorial />
-            </>
-          }
-        />
-        <Route
-          path='/login'
-          element={
-            <>
-              <Nav token={token} setToken={setToken} /> <Login token={token} setToken={setToken} />
-            </>
-          }
-        />
-        <Route
-          path='/register'
-          element={
-            <>
-              <Nav /> <Register />
-            </>
-          }
-        />
-      </Routes>
-    </Router>
-  )
+    getUser().then((u) => setUser(u))
+  }, [])
+  const login = (form) => auth.login(form).then((u) => setUser(u))
+  const register = (form) => auth.register(form).then((u) => setUser(u))
+  const logout = () => {
+    auth.logout()
+    setUser(null)
+  }
+
+  return user ? <AuthenticatedApp user={user} logout={logout} /> : <UnauthenticatedApp login={login} register={register} />
 }
 
 export default App

@@ -6,12 +6,23 @@ const app = express()
 app.use(express.json())
 const usersRouter = express.Router()
 const pool = require('../../db.js')
+const auth = require('../../middleware/auth.js')
 
 usersRouter.get('/', async (req, res) => {
   try {
     console.log('hi')
     const users = await pool.query('SELECT * FROM USERS')
     res.json(users.rows)
+  } catch (error) {
+    console.error(error.message)
+  }
+})
+
+usersRouter.get('/me', auth, async (req, res) => {
+  try {
+    const user_id = req.user.id
+    const users = await pool.query('SELECT * FROM USERS WHERE user_id=$1', [user_id])
+    res.json({ user: users.rows, token: req.header('x-auth-token') })
   } catch (error) {
     console.error(error.message)
   }
