@@ -20,7 +20,7 @@ const getPostService = async () => {
 }
 const deletePostService = async (id, header) => {
   const headers = {
-    'x-auth-token': header,
+    Authorization: `Bearer ${header}`,
   }
   const response = await axios.delete(baseUrl + '/' + id, {
     headers: headers,

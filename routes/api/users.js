@@ -20,9 +20,13 @@ usersRouter.get('/', async (req, res) => {
 
 usersRouter.get('/me', auth, async (req, res) => {
   try {
+    console.log('hjhj')
     const user_id = req.user.id
+    console.log(user_id)
     const users = await pool.query('SELECT * FROM USERS WHERE user_id=$1', [user_id])
-    res.json({ user: users.rows, token: req.header('x-auth-token') })
+    console.log('RUSSIAAAAAAAAAARUSSIAAAAAAAAAARUSSIAAAAAAAAAA')
+    console.log('RUSSIAAAAAAAAAARUSSIAAAAAAAAAARUSSIAAAAAAAAAA', users)
+    res.json({ user: users.rows, token: req.get('authorization').substring(7) })
   } catch (error) {
     console.error(error.message)
   }

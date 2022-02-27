@@ -3,7 +3,7 @@ const baseUrl = '/api/users/me'
 
 const me = async (header) => {
   const headers = {
-    'x-auth-token': header,
+    Authorization: `Bearer ${header}`,
   }
   const response = await axios.get(baseUrl, {
     headers: headers,
