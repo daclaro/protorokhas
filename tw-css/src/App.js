@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import me from './services/me.js'
 import * as auth from './auth-provider'
+import { useAsync } from './utils/hooks.js'
 import AuthenticatedApp from './AuthenticatedApp.js'
-import UnauthenticatedApp from './UnauthenticatedApp.js'
+import * as colors from './styles/colors'
 
+import UnauthenticatedApp from './UnauthenticatedApp.js'
+import { FullPageSpinner } from './components/Lib.js'
 async function getUser() {
   let user = null
 
@@ -20,18 +23,40 @@ async function getUser() {
 }
 
 function App() {
-  const [user, setUser] = React.useState(null)
+  const { data: user, error, isLoading, isIdle, isError, isSuccess, run, setData } = useAsync()
+
   React.useEffect(() => {
-    getUser().then((u) => setUser(u))
-  }, [])
-  const login = (form) => auth.login(form).then((u) => setUser(u))
-  const register = (form) => auth.register(form).then((u) => setUser(u))
+    run(getUser())
+  }, [run])
+  const login = (form) => auth.login(form).then((user) => setData(user))
+  const register = (form) => auth.register(form).then((user) => setData(user))
   const logout = () => {
     auth.logout()
-    setUser(null)
+    setData(null)
   }
-
-  return user ? <AuthenticatedApp user={user} logout={logout} /> : <UnauthenticatedApp login={login} register={register} />
+  if (isLoading || isIdle) {
+    return <FullPageSpinner />
+  }
+  if (isError) {
+    return (
+      <div
+        css={{
+          color: colors.danger,
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <p>Uh oh... There's a problem. Try refreshing the app.</p>
+        <pre>{error.message}</pre>
+      </div>
+    )
+  }
+  if (isSuccess) {
+    return user ? <AuthenticatedApp user={user} logout={logout} /> : <UnauthenticatedApp login={login} register={register} />
+  }
 }
 
 export default App
