@@ -3,7 +3,7 @@ const baseUrl = '/api/notes'
 
 const postService = async (posta, header) => {
   const headers = {
-    'x-auth-token': header,
+    Authorization: `Bearer ${header}`,
   }
 
   const response = await axios.post(baseUrl, posta, {

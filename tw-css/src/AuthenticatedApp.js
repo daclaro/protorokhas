@@ -5,6 +5,7 @@ import { Nav } from './components/Nav.js'
 import { AuthenticatedTutorial } from './components/AuthenticatedTutorial.js'
 import { AuthenticatedLogin } from './components/AuthenticatedLogin.js'
 import { AuthenticatedNav } from './components/AuthenticatedNav.js'
+import AuthenticatedIndicateurs from './components/AuthenticatedIndicateurs.js'
 import { Login } from './components/Login.js'
 import { Register } from './components/Register.js'
 import React, { useState, useEffect } from 'react'
@@ -35,6 +36,14 @@ function AuthenticatedApp({ user, logout }) {
           element={
             <>
               <AuthenticatedNav logout={logout} /> <Register />
+            </>
+          }
+        />
+        <Route
+          path='/notes'
+          element={
+            <>
+              <AuthenticatedNav logout={logout} /> <AuthenticatedIndicateurs user={user} logout={logout} />
             </>
           }
         />

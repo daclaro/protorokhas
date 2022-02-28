@@ -32,6 +32,8 @@ authsRouter.post('/', async (req, res) => {
       if (err) {
         throw err
       }
+      //      res.json({ user: query1.rows[0], token: token })
+
       res.json({ user: query1.rows[0], token: token })
     }
   )

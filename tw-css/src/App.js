@@ -16,7 +16,6 @@ async function getUser() {
     const data = await me(token)
     console.log('Fsdsd', data)
     user = data.user
-    console.log('dsfds YOU dsfcdsxzc', data.user)
   }
 
   return user

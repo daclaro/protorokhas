@@ -17,6 +17,7 @@ export const Login = (props) => {
     try {
       console.log('{ user_email: email, password: password }', { user_email: email, user_password: password })
       props.login({ user_email: email, user_password: password })
+      console.log('aaaaaaaa', props.login({ user_email: email, user_password: password }))
     } catch (error) {
       console.log(error)
     }

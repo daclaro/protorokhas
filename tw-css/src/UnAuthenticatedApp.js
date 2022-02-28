@@ -7,6 +7,8 @@ import { Register } from './components/Register.js'
 import React, { useState, useEffect } from 'react'
 import { Tutorial } from './components/Tutorial.js'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import UnauthenticatedIndicateurs from './components/UnauthenticatedIndicateurs.js'
+
 function UnauthenticatedApp({ login, register }) {
   return (
     <Router>
@@ -32,6 +34,14 @@ function UnauthenticatedApp({ login, register }) {
           element={
             <>
               <Nav /> <Register />
+            </>
+          }
+        />
+        <Route
+          path='/notes'
+          element={
+            <>
+              <Nav /> <UnauthenticatedIndicateurs />
             </>
           }
         />

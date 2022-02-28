@@ -26,7 +26,8 @@ usersRouter.get('/me', auth, async (req, res) => {
     const users = await pool.query('SELECT * FROM USERS WHERE user_id=$1', [user_id])
     console.log('RUSSIAAAAAAAAAARUSSIAAAAAAAAAARUSSIAAAAAAAAAA')
     console.log('RUSSIAAAAAAAAAARUSSIAAAAAAAAAARUSSIAAAAAAAAAA', users)
-    res.json({ user: users.rows, token: req.get('authorization').substring(7) })
+    ///  res.json({ user: users.rows, token: req.get('authorization').substring(7) })
+    res.json({ user: users.rows, token: req.extractedToken })
   } catch (error) {
     console.error(error.message)
   }
