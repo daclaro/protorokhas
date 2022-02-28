@@ -7,11 +7,11 @@ async function getToken() {
   return window.localStorage.getItem(localStorageKey)
 }
 
-function handleUserResponse(user) {
-  console.log('????????', user)
+function handleUserResponse({ user }) {
   window.localStorage.setItem(localStorageKey, user.token)
+
   //need to fix this and append token to the user object directly maybe later
-  return user.user
+  return user
 }
 
 async function login(creds) {

@@ -32,9 +32,10 @@ authsRouter.post('/', async (req, res) => {
       if (err) {
         throw err
       }
+      const vtoken = { token: token }
+      const vusers = { ...query1.rows[0], ...vtoken }
+      res.json({ user: vusers })
       //      res.json({ user: query1.rows[0], token: token })
-
-      res.json({ user: query1.rows[0], token: token })
     }
   )
 })
